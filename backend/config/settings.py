@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,8 +40,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # 3rd part apps
     "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "drf_spectacular",
     "debug_toolbar",
+    # local apps
+    "accounts",
 ]
 
 MIDDLEWARE = [
@@ -128,17 +133,29 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# DRF Settings
+# DRF & JWT Settings
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
 }
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "BLACKLIST_AFTER_ROTATION": True,
+}
+
+# Swagger Settings
 SPECTACULAR_SETTINGS = {
     "TITLE": "Employee Management System Project",
     "DESCRIPTION": "A Django REST Framework project for managing employees.",
     "VERSION": "1.0.0",
 }
 
+# Debug Toolbar Settings
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -157,3 +174,5 @@ DEBUG_TOOLBAR_PANELS = [
     "debug_toolbar.panels.logging.LoggingPanel",
     "debug_toolbar.panels.redirects.RedirectsPanel",
 ]
+
+AUTH_USER_MODEL = "accounts.CustomUser"
