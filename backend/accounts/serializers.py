@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import CustomUser
-import re
+from .utils import valid_email, valid_password
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -18,10 +18,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwarg = {"password": {"write_only": True}}
 
     def validate_password(self, value):
-        if not re.findall("[A-Za-z0-9@#$%^&+=]{8,}", value) or len(value) > 150:
+        if not valid_password(value) or len(value) > 150:
             raise serializers.ValidationError(
                 "Password Should contain characters (upper and lower case) numbers and special characters and have 8 characters"
             )
+        return value
+
+    def validate_email(self, value):
+        if not valid_email(value):
+            raise serializers.ValidationError("Invalid Email")
         return value
 
     def create(self, validated_data):
