@@ -4,6 +4,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
+from main.models import Company
 
 
 class UserManager(BaseUserManager):
@@ -31,6 +32,9 @@ class CustomUser(AbstractUser, PermissionsMixin):
 
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="employee")
+    company = models.ForeignKey(
+        Company, on_delete=models.SET_NULL, null=True, blank=True
+    )
 
     objects = UserManager()
 
