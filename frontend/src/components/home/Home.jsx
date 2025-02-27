@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-import Employees from "./pages/Employees";
-import Companies from "./pages/Companies";
-import Departments from "./pages/Departments";
+// import Employees from "./pages/Employees";
+import Companies from "../../features/dashboard/pages/Companies";
+// import Departments from "./pages/Departments";
 import { getTokens } from "../../utils/auth";
 import "./Home.css";
 
@@ -24,9 +24,9 @@ const Home = () => {
       <div className={`content-area ${isSidebarExpanded ? 'sidebar-expanded' : ''}`}>
         <Routes>
           <Route index element={<h1>Welcome to Dashboard</h1>} />
-          <Route path="employees" element={<Employees />} />
+          <Route path="employees" element={<h1>Employees</h1>} />
           <Route path="companies" element={<Companies />} />
-          <Route path="departments" element={<Departments />} />
+          <Route path="departments" element={<h1>Departments</h1>} />
         </Routes>
       </div>
     </div>

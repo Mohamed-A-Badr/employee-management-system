@@ -1,0 +1,83 @@
+.delete-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.delete-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  animation: scaleIn 0.2s ease-out;
+}
+
+.delete-icon {
+  font-size: 3rem;
+  color: #dc3545;
+  margin-bottom: 1rem;
+}
+
+.delete-modal h3 {
+  color: #333;
+  margin: 0 0 1rem;
+}
+
+.delete-modal p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.delete-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.delete-button {
+  background: linear-gradient(90deg, #dc3545, #ff6b6b) !important;
+}
+
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  background: #f8f9fa;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-button:hover {
+  background: #e9ecef;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

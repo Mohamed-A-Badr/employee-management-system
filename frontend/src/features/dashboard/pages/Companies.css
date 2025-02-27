@@ -1,0 +1,103 @@
+.companies-page {
+  padding: 2rem;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.breadcrumbs {
+  font-size: 1.1rem;
+}
+
+.breadcrumbs a {
+  color: #0062ff;
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumbs span {
+  color: #666;
+  margin: 0 0.5rem;
+}
+
+.table-container {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #f8f9fa;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #eee;
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 0.25rem;
+}
+
+.icon-button:hover {
+  background: #f0f0f0;
+}
+
+.icon-button i {
+  font-size: 1.1rem;
+}
+
+.icon-button i.fa-edit {
+  color: #0062ff;
+}
+
+.icon-button i.fa-trash {
+  color: #dc3545;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  padding: 1rem;
+  background-color: #fff3f3;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  color: #dc3545;
+  margin: 1rem 0;
+}
