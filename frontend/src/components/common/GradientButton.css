@@ -1,0 +1,50 @@
+.gradient-button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(90deg, #0062ff, #da61ff);
+  color: white;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.gradient-button.full-width {
+  width: 100%;
+}
+
+.gradient-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 98, 255, 0.3);
+}
+
+.gradient-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 98, 255, 0.3);
+}
+
+.gradient-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #0062ff, #da61ff);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.gradient-button:hover::after {
+  opacity: 1;
+}
+
+.gradient-button span {
+  position: relative;
+  z-index: 2;
+  color: white;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

@@ -1,76 +1,63 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import Button from "./form/Button";
-import Input from "./form/Input";
+import { api, saveTokens } from "../utils/auth";
+import GradientButton from "./common/GradientButton";
 import "./Login.css";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    
+
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/auth/login/", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await api.post("/auth/login/", {
+        email,
+        password,
       });
 
-      // Store the token in localStorage
-      localStorage.setItem("token", response.data.access);
-      
-      // Redirect to home page
+      const { access, refresh } = response.data;
+      saveTokens(access, refresh);
       navigate("/");
     } catch (err) {
-      if (err.response?.status === 400 || err.response?.status === 401) {
-        setError("Email or Password are incorrect");
-      } else {
-        setError(err.response?.data?.message || err.message || "Something went wrong");
-      }
+      setError(
+        err.response?.data?.detail || 
+        "An error occurred during login. Please try again."
+      );
     }
   };
 
   return (
-    <div className="gradient_background">
-      <div className="login-container">
-        <h1 className="title">Log In</h1>
-        {error && <p className="error-message">{error}</p>}
+    <div className="login-container">
+      <div className="login-form">
+        <h2>Log In</h2>
+        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            label="Email Address"
-            placeholder="me@example.com"
-            value={formData.email}
-            onChange={handleChange}
-            autoFocus={true}
-          />
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            label="Password"
-            placeholder="••••••••••"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <Button type="submit" value="Log In" />
+          <div className="form-group">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email Address"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+            />
+          </div>
+          <GradientButton type="submit" fullWidth>
+            Log In
+          </GradientButton>
         </form>
       </div>
     </div>

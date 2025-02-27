@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
+import GradientButton from "../../common/GradientButton";
+import "./ToggleButton.css";
+import "font-awesome/css/font-awesome.min.css";
+
 const ToggleButton = ({ isExpanded, onClick }) => {
   return (
-    <button
-      className="toggle-button"
+    <GradientButton 
       onClick={onClick}
-      aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
+      className="toggle-button"
+      title={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
     >
-      {isExpanded ? "◀" : "▶"}
-    </button>
+      <i className={`fa fa-chevron-${isExpanded ? 'left' : 'right'}`}></i>
+    </GradientButton>
   );
 };
 

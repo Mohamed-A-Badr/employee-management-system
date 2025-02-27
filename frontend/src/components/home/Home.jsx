@@ -1,12 +1,35 @@
-import React from "react";
-import "./Home.css";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 import Sidebar from "./Sidebar";
+import Employees from "./pages/Employees";
+import Companies from "./pages/Companies";
+import Departments from "./pages/Departments";
+import { getTokens } from "../../utils/auth";
+import "./Home.css";
 
 const Home = () => {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const tokens = getTokens();
+
+  if (!tokens?.access) {
+    return <Navigate to="/login" />;
+  }
+
   return (
-    <>
-      <Sidebar />
-    </>
+    <div className="home-container">
+      <Sidebar 
+        isExpanded={isSidebarExpanded}
+        setIsExpanded={setIsSidebarExpanded}
+      />
+      <div className={`content-area ${isSidebarExpanded ? 'sidebar-expanded' : ''}`}>
+        <Routes>
+          <Route index element={<h1>Welcome to Dashboard</h1>} />
+          <Route path="employees" element={<Employees />} />
+          <Route path="companies" element={<Companies />} />
+          <Route path="departments" element={<Departments />} />
+        </Routes>
+      </div>
+    </div>
   );
 };
 

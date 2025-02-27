@@ -1,26 +1,39 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
+import { api, clearTokens, getTokens } from "../../../utils/auth";
+import GradientButton from "../../common/GradientButton";
+import "./LogoutButton.css";
+import "font-awesome/css/font-awesome.min.css";
 
 const LogoutButton = ({ isExpanded }) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      const tokens = getTokens();
+      if (tokens?.refresh) {
+        await api.post("/auth/logout/", {
+          refresh: tokens.refresh
+        });
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      clearTokens();
+      navigate("/login");
+    }
   };
 
   return (
     <div className="logout-container">
-      <button className="logout-button" onClick={handleLogout}>
-        {isExpanded ? (
-          <>
-            <span>🚪</span>
-            <span className="nav-text">Logout</span>
-          </>
-        ) : (
-          <span>🚪</span>
-        )}
-      </button>
+      <GradientButton 
+        onClick={handleLogout}
+        className={`logout-button ${!isExpanded ? 'collapsed' : ''}`}
+        title="Logout"
+      >
+        <i className="fa fa-sign-out"></i>
+        {isExpanded && <span>Logout</span>}
+      </GradientButton>
     </div>
   );
 };

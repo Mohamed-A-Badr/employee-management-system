@@ -1,0 +1,54 @@
+.logout-container {
+  margin-top: auto;
+  padding: 1rem;
+  width: 100%;
+}
+
+.logout-button {
+  padding: 0.75rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  width: 100% !important;
+  border-radius: 0.5rem !important;
+  background: linear-gradient(90deg, #0062ff, #da61ff) !important;
+  opacity: 1 !important;
+  color: #e74c3c;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-button:hover {
+  background: rgba(231, 76, 60, 0.1);
+}
+
+.logout-button i {
+  font-size: 1.1rem;
+  min-width: 1.1rem;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.logout-button span {
+  color: white;
+  position: relative;
+  z-index: 2;
+  font-weight: 500;
+  font-size: 1rem;
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .logout-button {
+  padding: 0.75rem !important;
+  justify-content: center;
+}
+
+.sidebar.collapsed .logout-button span {
+  display: none;
+}

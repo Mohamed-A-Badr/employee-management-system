@@ -68,3 +68,23 @@
     padding: 20px;
   }
   
+  .home-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+
+  .content-area {
+    flex: 1;
+    margin-left: 80px; /* Same as collapsed sidebar width */
+    transition: all 0.3s ease;
+    padding: 2rem;
+    min-height: 100vh;
+    box-sizing: border-box;
+    width: calc(100% - 80px); /* Adjust width based on collapsed sidebar */
+  }
+
+  .content-area.sidebar-expanded {
+    margin-left: 250px; /* Same as expanded sidebar width */
+    width: calc(100% - 250px); /* Adjust width based on expanded sidebar */
+  }
