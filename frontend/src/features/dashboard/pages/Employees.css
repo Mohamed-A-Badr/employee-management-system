@@ -1,0 +1,21 @@
+.employees-page {
+  padding: 2rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error {
+  padding: 1rem;
+  background-color: #fff3f3;
+  border: 1px solid #dc3545;
+  border-radius: 4px;
+  color: #dc3545;
+  margin: 1rem 0;
+}

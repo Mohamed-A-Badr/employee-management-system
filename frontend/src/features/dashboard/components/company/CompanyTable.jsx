@@ -8,8 +8,8 @@ const CompanyTable = ({ companies, onEdit, onDelete }) => {
         <thead>
           <tr>
             <th>Name</th>
-            <th>Number of Employees</th>
-            <th>Number of Departments</th>
+            <th>Employees</th>
+            <th>Departments</th>
             <th>Actions</th>
           </tr>
         </thead>

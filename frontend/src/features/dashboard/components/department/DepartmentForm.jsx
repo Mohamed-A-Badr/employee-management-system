@@ -1,22 +1,24 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import GradientButton from "../../../components/common/GradientButton";
-import "./CompanyForm.css";
+import GradientButton from "../../../../components/common/GradientButton";
+import "./DepartmentForm.css";
 
-const CompanyForm = ({ company, onSubmit, onClose }) => {
+const DepartmentForm = ({ department, companies, onSubmit, onClose }) => {
   const [formData, setFormData] = useState({
     id: null,
     name: "",
+    company: "",
   });
 
   useEffect(() => {
-    if (company) {
+    if (department) {
       setFormData({
-        id: company.id,
-        name: company.name || "",
+        id: department.id,
+        name: department.name || "",
+        company: department.company || "",
       });
     }
-  }, [company]);
+  }, [department]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,14 +37,14 @@ const CompanyForm = ({ company, onSubmit, onClose }) => {
     <div className="form-overlay">
       <div className="company-form">
         <div className="form-header">
-          <h2>{company ? "Edit Company" : "Add Company"}</h2>
+          <h2>{department ? "Edit Department" : "Add Department"}</h2>
           <button onClick={onClose} className="close-button">
             <i className="fa fa-times"></i>
           </button>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Company Name</label>
+            <label htmlFor="name">Department Name</label>
             <input
               type="text"
               id="name"
@@ -52,9 +54,26 @@ const CompanyForm = ({ company, onSubmit, onClose }) => {
               required
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="company">Company</label>
+            <select
+              id="company"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select a company</option>
+              {companies.map(company => (
+                <option key={company.id} value={company.id}>
+                  {company.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="form-actions">
             <GradientButton type="submit">
-              {company ? "Update" : "Create"}
+              {department ? "Update" : "Create"}
             </GradientButton>
             <button type="button" onClick={onClose} className="cancel-button">
               Cancel
@@ -66,13 +85,20 @@ const CompanyForm = ({ company, onSubmit, onClose }) => {
   );
 };
 
-CompanyForm.propTypes = {
-  company: PropTypes.shape({
+DepartmentForm.propTypes = {
+  department: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
+    company: PropTypes.number,
   }),
+  companies: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default CompanyForm;
+export default DepartmentForm;

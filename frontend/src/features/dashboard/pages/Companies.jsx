@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useCompany } from "../hooks/useCompany";
-import CompanyHeader from "../components/CompanyHeader";
-import CompanyTable from "../components/CompanyTable";
-import CompanyForm from "../components/CompanyForm";
+import CompanyHeader from "../components/company/CompanyHeader";
+import CompanyTable from "../components/company/CompanyTable";
+import CompanyForm from "../components/company/CompanyForm";
 import DeleteConfirmation from "../components/DeleteConfirmation";
 import "./Companies.css";
 

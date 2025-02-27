@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import GradientButton from '../../../components/common/GradientButton';
+import GradientButton from '../../../../components/common/GradientButton';
 import './CompanyHeader.css';
 
 const CompanyHeader = ({ onAdd }) => {

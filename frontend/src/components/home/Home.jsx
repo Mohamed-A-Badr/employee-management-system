@@ -6,6 +6,8 @@ import Companies from "../../features/dashboard/pages/Companies";
 // import Departments from "./pages/Departments";
 import { getTokens } from "../../utils/auth";
 import "./Home.css";
+import Departments from "../../features/dashboard/pages/Departments";
+import Employees from "../../features/dashboard/pages/Employees";
 
 const Home = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -24,9 +26,9 @@ const Home = () => {
       <div className={`content-area ${isSidebarExpanded ? 'sidebar-expanded' : ''}`}>
         <Routes>
           <Route index element={<h1>Welcome to Dashboard</h1>} />
-          <Route path="employees" element={<h1>Employees</h1>} />
+          <Route path="employees" element={<Employees />} />
           <Route path="companies" element={<Companies />} />
-          <Route path="departments" element={<h1>Departments</h1>} />
+          <Route path="departments" element={<Departments/>} />
         </Routes>
       </div>
     </div>

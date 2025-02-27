@@ -21,9 +21,9 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == "Admin":
+        if user.role == "admin":
             return Department.objects.all()
-        if user.role == "Manager":
+        if user.role == "manager":
             return Department.objects.filter(company=user.company)
         return Department.objects.none()
 
@@ -35,12 +35,12 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, (IsAdmin | IsManager | IsEmployee)]
 
     def get_queryset(self):
-        user = self.request.role
-        if user.role == "Admin":
+        user = self.request.user 
+        if user.role == "admin":
             return Employee.objects.all()
-        if user.role == "Manager":
+        if user.role == "manager":
             return Employee.objects.filter(company=user.company)
-        if user.role == "Employee":
+        if user.role == "employee":
             return Employee.objects.filter(email=user.email)
 
         return Employee.objects.none()

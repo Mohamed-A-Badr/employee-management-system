@@ -20,6 +20,7 @@ class CompanySerializer(serializers.ModelSerializer):
 
 class DepartmentSerializer(serializers.ModelSerializer):
     number_of_employees = serializers.ReadOnlyField()
+    company_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Department
@@ -27,12 +28,21 @@ class DepartmentSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "company",
+            "company_name",
             "number_of_employees",
         )
+        extra_kwargs = {
+            "company": {"write_only": True},
+        }
+
+    def get_company_name(self, obj):
+        return obj.company.name
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
     days_employed = serializers.ReadOnlyField()
+    company_name = serializers.SerializerMethodField()
+    department_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Employee
@@ -40,6 +50,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "id",
             "company",
             "department",
+            "company_name",
+            "department_name",
             "employee_name",
             "email",
             "mobile_number",
@@ -48,7 +60,17 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "hired_on",
             "days_employed",
         )
+        extra_kwargs = {
+            "company": {"write_only": True},
+            "department": {"write_only": True},
+        }
 
+    def get_company_name(self, obj):
+        return obj.company.name
+
+    def get_department_name(self,obj):
+        return obj.department.name
+    
     def validate(self, attrs):
         # Chack email format and exist
         email = attrs.get("email")
