@@ -2,7 +2,7 @@ from accounts.utils import valid_email, valid_phone_number
 from rest_framework import serializers
 
 from .models import Company, Department, Employee
-
+from accounts.models import CustomUser
 
 class CompanySerializer(serializers.ModelSerializer):
     number_of_departments = serializers.ReadOnlyField()
@@ -40,14 +40,21 @@ class DepartmentSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name="employee-detail",
+        read_only=True,
+        lookup_field="pk",
+    )
     days_employed = serializers.ReadOnlyField()
     company_name = serializers.SerializerMethodField()
     department_name = serializers.SerializerMethodField()
+    role = serializers.SerializerMethodField()
 
     class Meta:
         model = Employee
         fields = (
             "id",
+            "url",
             "company",
             "department",
             "company_name",
@@ -55,6 +62,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "employee_name",
             "email",
             "mobile_number",
+            "role",
             "address",
             "designation",
             "hired_on",
@@ -70,6 +78,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
     def get_department_name(self,obj):
         return obj.department.name
+    
+    def get_role(self, obj):
+        user = CustomUser.objects.filter(email=obj.email).first()
+        if user.role:
+            return user.role
+        return ""
     
     def validate(self, attrs):
         # Chack email format and exist

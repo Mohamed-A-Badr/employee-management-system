@@ -21,6 +21,18 @@ export const api = axios.create({
   baseURL: 'http://localhost:8000/api/v1',
 });
 
+// Add request interceptor to add token to all requests
+api.interceptors.request.use(
+  (config) => {
+    const tokens = getTokens();
+    if (tokens?.access) {
+      config.headers.Authorization = `Bearer ${tokens.access}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // Add interceptor to handle token refresh
 api.interceptors.response.use(
   (response) => response,
@@ -59,12 +71,3 @@ api.interceptors.response.use(
     }
   }
 );
-
-// Add auth header interceptor
-api.interceptors.request.use((config) => {
-  const tokens = getTokens();
-  if (tokens?.access) {
-    config.headers.Authorization = `Bearer ${tokens.access}`;
-  }
-  return config;
-});

@@ -4,9 +4,12 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+from .models import CustomUser
+
 from .serializers import (
     LogoutSerializer,
     RegisterSerializer,
+    UserProfileSerializer
 )
 
 
@@ -63,7 +66,17 @@ class LogoutView(generics.GenericAPIView):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
+class ProfileView(generics.GenericAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        serializer = self.serializer_class(request.user)
+        return Response(serializer.data)
+
 register = RegisterView.as_view()
 login = LoginView.as_view()
 refresh_token = RefreshTokenView.as_view()
 logout = LogoutView.as_view()
+profile = ProfileView.as_view()

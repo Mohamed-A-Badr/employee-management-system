@@ -38,11 +38,17 @@ const Employees = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [employeeToDelete, setEmployeeToDelete] = useState(null);
 
+  // Fetch data only once when component mounts
   useEffect(() => {
-    fetchEmployees();
-    fetchCompanies();
-    fetchDepartments();
-  }, [fetchEmployees, fetchCompanies, fetchDepartments]);
+    const fetchData = async () => {
+      await Promise.all([
+        fetchEmployees(),
+        fetchCompanies(),
+        fetchDepartments()
+      ]);
+    };
+    fetchData();
+  }, []); // Empty dependency array since we only want to fetch once
 
   const handleDelete = async () => {
     if (!employeeToDelete) return;
@@ -112,6 +118,7 @@ const Employees = () => {
 
       {showDeleteConfirm && (
         <DeleteConfirmation
+          title="Delete Employee"
           message={`Are you sure you want to delete ${employeeToDelete?.first_name} ${employeeToDelete?.last_name}?`}
           onConfirm={handleDelete}
           onCancel={() => {

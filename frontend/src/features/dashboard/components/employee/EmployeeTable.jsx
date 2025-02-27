@@ -11,6 +11,10 @@ const EmployeeTable = ({ employees, onEdit, onDelete }) => {
             <th>Email</th>
             <th>Phone</th>
             <th>Role</th>
+            <th>Address</th>
+            <th>Designation</th>
+            <th>Hired on</th>
+            <th>Days Employed</th>
             <th>Company</th>
             <th>Department</th>
             <th>Actions</th>
@@ -23,6 +27,10 @@ const EmployeeTable = ({ employees, onEdit, onDelete }) => {
               <td>{employee.email}</td> 
               <td>{employee.mobile_number}</td>
               <td>{employee.role}</td>
+              <td>{employee.address}</td>
+              <td>{employee.designation}</td>
+              <td>{employee.hired_on}</td>
+              <td>{employee.days_employed}</td>
               <td>{employee.company_name}</td>
               <td>{employee.department_name}</td>
               <td className="actions">
