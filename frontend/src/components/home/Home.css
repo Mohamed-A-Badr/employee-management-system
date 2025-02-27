@@ -1,0 +1,70 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: width 0.3s ease;
+  }
+  
+  .sidebar.closed {
+    width: 70px;
+  }
+  
+  .sidebar-home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #222;
+    color: white;
+  }
+  
+  .sidebar-nav {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-nav a {
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+  }
+  
+  .sidebar-nav a:hover {
+    background: #444;
+    border-radius: 5px;
+  }
+  
+  /* Layout */
+  .container {
+    display: flex;
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  
