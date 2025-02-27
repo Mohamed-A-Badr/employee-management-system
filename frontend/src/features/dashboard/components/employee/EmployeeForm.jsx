@@ -3,12 +3,21 @@ import PropTypes from "prop-types";
 import GradientButton from "../../../../components/common/GradientButton";
 import "./EmployeeForm.css";
 
-const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) => {
+const EmployeeForm = ({
+  employee,
+  companies,
+  departments,
+  onSubmit,
+  onClose,
+}) => {
   const [formData, setFormData] = useState({
     id: null,
+    employee_name: "",
     email: "",
-    first_name: "",
-    last_name: "",
+    mobile_number: "",
+    address: "",
+    designation: "",
+    hired_on: "",
     role: "",
     company: "",
     department: "",
@@ -21,8 +30,11 @@ const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) =
       setFormData({
         id: employee.id,
         email: employee.email || "",
-        first_name: employee.first_name || "",
-        last_name: employee.last_name || "",
+        employee_name: employee.employee_name || "",
+        mobile_number: employee.mobile_number || "",
+        address: employee.address || "",
+        designation: employee.designation || "",
+        hired_on: employee.hired_on || "",
         role: employee.role || "",
         company: employee.company || "",
         department: employee.department || "",
@@ -33,7 +45,7 @@ const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) =
   useEffect(() => {
     if (formData.company) {
       setAvailableDepartments(
-        departments.filter(dept => dept.company === Number(formData.company))
+        departments.filter((dept) => dept.company === Number(formData.company))
       );
     } else {
       setAvailableDepartments([]);
@@ -47,12 +59,12 @@ const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) =
         ...prev,
         [name]: value,
       };
-      
+
       // Reset department when company changes
-      if (name === 'company') {
-        newData.department = '';
+      if (name === "company") {
+        newData.department = "";
       }
-      
+
       return newData;
     });
   };
@@ -73,6 +85,17 @@ const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) =
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
+            <label htmlFor="employee_name">First Name</label>
+            <input
+              type="text"
+              id="employee_name"
+              name="employee_name"
+              value={formData.employee_name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
               type="email"
@@ -84,23 +107,45 @@ const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) =
             />
           </div>
           <div className="form-group">
-            <label htmlFor="first_name">First Name</label>
+            <label htmlFor="mobile_number">Phone number</label>
             <input
-              type="text"
-              id="first_name"
-              name="first_name"
-              value={formData.first_name}
+              type="tel"
+              id="mobile_number"
+              name="mobile_number"
+              value={formData.mobile_number}
               onChange={handleChange}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="last_name">Last Name</label>
+            <label htmlFor="address">Address</label>
             <input
               type="text"
-              id="last_name"
-              name="last_name"
-              value={formData.last_name}
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="designation">Designation</label>
+            <input
+              type="text"
+              id="designation"
+              name="designation"
+              value={formData.designation}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="hired_on">Hire on</label>
+            <input
+              type="date"
+              id="hired_on"
+              name="hired_on"
+              value={formData.hired_on}
               onChange={handleChange}
               required
             />
@@ -130,7 +175,7 @@ const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) =
               required
             >
               <option value="">Select a company</option>
-              {companies.map(company => (
+              {companies.map((company) => (
                 <option key={company.id} value={company.id}>
                   {company.name}
                 </option>
@@ -148,7 +193,7 @@ const EmployeeForm = ({ employee, companies, departments, onSubmit, onClose }) =
               disabled={!formData.company}
             >
               <option value="">Select a department</option>
-              {availableDepartments.map(department => (
+              {availableDepartments.map((department) => (
                 <option key={department.id} value={department.id}>
                   {department.name}
                 </option>
@@ -173,8 +218,11 @@ EmployeeForm.propTypes = {
   employee: PropTypes.shape({
     id: PropTypes.number,
     email: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
+    employee_name: PropTypes.string,
+    mobile_number: PropTypes.string,
+    address: PropTypes.string,
+    designation: PropTypes.string,
+    hired_on: PropTypes.string,
     role: PropTypes.string,
     company: PropTypes.number,
     department: PropTypes.number,
