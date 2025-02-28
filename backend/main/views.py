@@ -3,21 +3,29 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Company, Department, Employee
-from .permissions import IsAdmin, IsEmployee, IsManager
+from .permissions import IsAdmin, IsEmployee, IsManager, IsAdminOrManager
 from .serializers import CompanySerializer, DepartmentSerializer, EmployeeSerializer
 
 
 @extend_schema(tags=["Company"])
 class CompanyViewSet(viewsets.ModelViewSet):
-    queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [IsAuthenticated, IsAdmin]
-
+    permission_classes = [IsAuthenticated, IsAdminOrManager]
+    
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == "admin":
+            return Company.objects.all()
+        if user.role == "manager":
+            employee = Employee.objects.filter(email=user.email).first()
+            if employee:
+                return Company.objects.filter(id=employee.company.id)
+        return Company.objects.none()
 
 @extend_schema(tags=["Department"])
 class DepartmentViewSet(viewsets.ModelViewSet):
     serializer_class = DepartmentSerializer
-    permission_classes = [IsAuthenticated, (IsAdmin | IsManager)]
+    permission_classes = [IsAuthenticated, IsAdminOrManager]
 
     def get_queryset(self):
         user = self.request.user
@@ -32,7 +40,7 @@ class DepartmentViewSet(viewsets.ModelViewSet):
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
-    permission_classes = [IsAuthenticated, (IsAdmin | IsManager | IsEmployee)]
+    permission_classes = [IsAuthenticated, IsAdminOrManager]
 
     def get_queryset(self):
         user = self.request.user 
