@@ -4,6 +4,7 @@ from rest_framework import serializers
 from .models import Company, Department, Employee
 from accounts.models import CustomUser
 
+
 class CompanySerializer(serializers.ModelSerializer):
     number_of_departments = serializers.ReadOnlyField()
     number_of_employees = serializers.ReadOnlyField()
@@ -48,7 +49,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
         read_only=True,
         lookup_field="pk",
     )
-    role = serializers.SerializerMethodField()
+    role = serializers.CharField(max_length=20, write_only=True)
+    employee_role = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Employee
@@ -63,6 +65,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "email",
             "mobile_number",
             "role",
+            "employee_role",
             "address",
             "designation",
             "hired_on",
@@ -73,13 +76,12 @@ class EmployeeSerializer(serializers.ModelSerializer):
             "department": {"write_only": True},
         }
 
-    def get_role(self, obj):
+    def get_employee_role(self, obj):
         user = CustomUser.objects.filter(email=obj.email).first()
-        if user.role:
+        if user and user.role:
             return user.role
         return " "
-        
-    
+
     def get_company_name(self, obj):
         return obj.company.name
 
@@ -112,17 +114,17 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
         return super().validate(attrs)
 
-    
     def create(self, validated_data):
+        role = validated_data.pop("role", None)
+        password = "testpassword123"
         employee = super().create(validated_data)
-        temp_password = "testpassword1234"
-        user_data = {
-            "username": employee.employee_name,
-            "email": employee.email,
-            "password": temp_password,
-            "role": validated_data.get("role"),
-            "company": employee.company,
-        }
-        CustomUser.objects.create_user(**user_data)
+
+        CustomUser.objects.create_user(
+            email=employee.email,
+            username=employee.employee_name,
+            role=role,
+            password=password,
+            company=employee.company,
+        )
+
         return employee
-    

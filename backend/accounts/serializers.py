@@ -55,4 +55,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "username",
             "email",
             "role",
+            "company",
         )
