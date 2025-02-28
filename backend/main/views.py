@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Company, Department, Employee
-from .permissions import IsAdmin, IsEmployee, IsManager, IsAdminOrManager
+from .permissions import IsAdminOrManager
 from .serializers import CompanySerializer, DepartmentSerializer, EmployeeSerializer
 
 
