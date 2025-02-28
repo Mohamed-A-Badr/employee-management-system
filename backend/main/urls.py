@@ -10,6 +10,6 @@ router.register("employee", views.EmployeeViewSet, basename="employee")
 urlpatterns = [
     path("list/company/", views.company_list, name="all_company_list"),
     path(
-        "list/<int:pk>/department/", views.department_list, name="all_department_list"
+        "list/department/<int:pk>/", views.department_list, name="all_department_list"
     ),
 ] + router.urls

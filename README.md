@@ -21,6 +21,7 @@ This is a full-stack Employee Management System developed as part of a technical
 - [x] Email and mobile number format validation
 - [x] Automatic calculations for departments and employees
 - [x] Cascading management for related records
+- [x] Implement comprehensive role-based access control
 
 ✅ Frontend Features
 
@@ -33,8 +34,6 @@ This is a full-stack Employee Management System developed as part of a technical
   - View Department Details
 - [x] Employee Management Pages
   - List Employees
-  - Create Employee
-  - Edit Employee
   - View Employee Details
 
 ✅ API Integration
@@ -44,6 +43,11 @@ This is a full-stack Employee Management System developed as part of a technical
 - [x] Error handling
 
 ### Pending/Bonus Requirements
+
+❓ Employee Management Pages
+
+- [ ] Create Employee
+- [ ] Edit Employee
 
 ❓ Workflow Management
 
@@ -110,7 +114,13 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-5. Start development server
+5. Create superuser account
+
+```bash
+python manage.py createsupueruser
+```
+
+6. Start development server
 
 ```bash
 python manage.py runserver
@@ -138,13 +148,17 @@ npm run dev
 
 ## API Documentation
 
-Detailed API documentation is available at `/api/docs` when the backend server is running.
+Detailed API documentation is available at `/api/swagger` when the backend server is running.
 
 ### Key Endpoints
 
-- `/api/companies`: Company management
-- `/api/departments`: Department management
-- `/api/employees`: Employee management
+- `/api/v1/companies`: Company management
+- `/api/v1/departments`: Department management
+- `/api/v1/employees`: Employee management
+- `/api/v1/auth/register`: Create new use account
+- `/api/v1/auth/login`: Login to user account
+- `/api/v1/auth/logout`: logout from the account
+- `/api/v1/auth/refresh`: refresh the access token
 
 ## Security Considerations
 
@@ -154,7 +168,6 @@ Detailed API documentation is available at `/api/docs` when the backend server i
 
 ## Future Improvements
 
-- Implement comprehensive role-based access control
 - Add more advanced workflow management
 - Enhance error logging and monitoring
 - Develop more extensive test coverage
