@@ -90,7 +90,7 @@ const UserProfile = ({ isExpanded }) => {
       {isExpanded && (
         <div className="user-profile-details">
           <div className="username">{userProfile.username}</div>
-          <div className="email text-muted">{userProfile.email}</div>
+          <div className="email text-muted">{userProfile.email} {userProfile.role}</div>
         </div>
       )}
     </div>

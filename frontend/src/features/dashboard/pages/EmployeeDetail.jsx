@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getTokens } from '../../../utils/auth';
 import './EmployeeDetail.css';
@@ -9,6 +9,7 @@ const EmployeeDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEmployeeDetail = async () => {
@@ -32,12 +33,21 @@ const EmployeeDetail = () => {
     fetchEmployeeDetail();
   }, [id]);
 
+  const handleGoBack = () => {
+    navigate('/employees');
+  };
+
   if (loading) return <div className="employee-detail-loading">Loading...</div>;
   if (error) return <div className="employee-detail-error">Error loading employee details</div>;
   if (!employee) return null;
 
   return (
     <div className="employee-detail-container">
+      <div className="employee-detail-breadcrumb">
+        <button onClick={handleGoBack} className="breadcrumb-back-button">
+          <i className="fa fa-arrow-left"></i> Employees
+        </button>
+      </div>
       <div className="employee-detail-header">
         <h1>{employee.employee_name}</h1>
       </div>
