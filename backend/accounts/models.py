@@ -1,3 +1,4 @@
+from enum import unique
 from django.contrib.auth.models import (
     AbstractUser,
     BaseUserManager,
@@ -29,7 +30,7 @@ class CustomUser(AbstractUser, PermissionsMixin):
         ("manager", "Manager"),
         ("employee", "Employee"),
     )
-
+    username = models.CharField(unique=False, max_length=150)
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="employee")
     company = models.ForeignKey(
