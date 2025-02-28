@@ -43,12 +43,18 @@ class EmployeeSerializer(serializers.ModelSerializer):
     days_employed = serializers.ReadOnlyField()
     company_name = serializers.SerializerMethodField()
     department_name = serializers.SerializerMethodField()
+    url = serializers.HyperlinkedIdentityField(
+        view_name="employee-detail",
+        read_only=True,
+        lookup_field="pk",
+    )
     role = serializers.SerializerMethodField()
 
     class Meta:
         model = Employee
         fields = (
             "id",
+            "url",
             "company",
             "department",
             "company_name",

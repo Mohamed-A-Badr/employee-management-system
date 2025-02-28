@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import './EmployeeTable.css';
+import PropTypes from "prop-types";
+import "./EmployeeTable.css";
 
 const EmployeeTable = ({ employees, onEdit, onDelete }) => {
   return (
     <div className="table-container">
-      <table>
+      <table className="employee-table">
         <thead>
           <tr>
             <th>Name</th>
@@ -19,17 +19,30 @@ const EmployeeTable = ({ employees, onEdit, onDelete }) => {
         <tbody>
           {employees.map((employee) => (
             <tr key={employee.id}>
-              <td>{employee.employee_name}</td>
-              <td>{employee.email}</td> 
+              <td>
+                <a 
+                  href={`/employee/${employee.id}`} 
+                  className="employee-name-link"
+                >
+                  {employee.employee_name}
+                </a>
+              </td>
+              <td>{employee.email}</td>
               <td>{employee.mobile_number}</td>
               <td>{employee.role}</td>
               <td>{employee.company_name}</td>
               <td>{employee.department_name}</td>
               <td className="actions">
-                <button onClick={() => onEdit(employee)} className="icon-button">
+                <button
+                  onClick={() => onEdit(employee)}
+                  className="icon-button"
+                >
                   <i className="fa fa-edit"></i>
                 </button>
-                <button onClick={() => onDelete(employee)} className="icon-button delete">
+                <button
+                  onClick={() => onDelete(employee)}
+                  className="icon-button delete"
+                >
                   <i className="fa fa-trash"></i>
                 </button>
               </td>
@@ -45,16 +58,16 @@ EmployeeTable.propTypes = {
   employees: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      first_name: PropTypes.string.isRequired,
-      last_name: PropTypes.string.isRequired,
+      employee_name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      role: PropTypes.string.isRequired,
-      company_name: PropTypes.string.isRequired,
-      department_name: PropTypes.string.isRequired,
+      mobile_number: PropTypes.string,
+      role: PropTypes.string,
+      company_name: PropTypes.string,
+      department_name: PropTypes.string
     })
   ).isRequired,
   onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 export default EmployeeTable;

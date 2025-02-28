@@ -8,6 +8,7 @@ import { getTokens } from "../../utils/auth";
 import "./Home.css";
 import Departments from "../../features/dashboard/pages/Departments";
 import Employees from "../../features/dashboard/pages/Employees";
+import EmployeeDetail from "../../features/dashboard/pages/EmployeeDetail";
 
 const Home = () => {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -19,7 +20,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <Sidebar 
+      <Sidebar
         isExpanded={isSidebarExpanded}
         setIsExpanded={setIsSidebarExpanded}
       />
@@ -27,6 +28,7 @@ const Home = () => {
         <Routes>
           <Route index element={<h1>Welcome to Dashboard</h1>} />
           <Route path="employees" element={<Employees />} />
+          <Route path="employee/:id" element={<EmployeeDetail />} />
           <Route path="companies" element={<Companies />} />
           <Route path="departments" element={<Departments/>} />
         </Routes>

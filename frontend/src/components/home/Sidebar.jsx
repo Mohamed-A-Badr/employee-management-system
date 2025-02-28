@@ -3,6 +3,7 @@ import Logo from "./components/Logo";
 import NavList from "./components/NavList";
 import LogoutButton from "./components/LogoutButton";
 import ToggleButton from "./components/ToggleButton";
+import UserProfile from "./UserProfile";
 import "./Sidebar.css";
 
 const Sidebar = ({ isExpanded, setIsExpanded }) => {
@@ -11,12 +12,13 @@ const Sidebar = ({ isExpanded, setIsExpanded }) => {
       id="sidebar"
       className={`sidebar ${isExpanded ? "expanded" : "collapsed"}`}
     >
-      <Logo />
       <ToggleButton
         isExpanded={isExpanded}
         onClick={() => setIsExpanded(!isExpanded)}
       />
+      <Logo />
       <NavList />
+      <UserProfile isExpanded={isExpanded} />
       <LogoutButton isExpanded={isExpanded} />
     </div>
   );

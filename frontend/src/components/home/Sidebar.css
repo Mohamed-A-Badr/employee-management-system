@@ -93,3 +93,44 @@
     width: 0;
     overflow: hidden;
 }
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar.expanded {
+  width: 250px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: auto;
+}
+
+.user-profile-icon {
+  color: #6c757d;
+  margin-right: 15px;
+}
+
+.user-profile-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 16px;
+  color: black;
+}
+
+.email {
+  color: #6c757d;
+  font-size: 12px;
+}
+
+.text-muted {
+  color: #6c757d;
+}
