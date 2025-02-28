@@ -1,13 +1,18 @@
 from typing import override
 from drf_spectacular.utils import extend_schema
-from rest_framework import viewsets
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from accounts.models import CustomUser
-
+from .paginations import SmallResultsSetPagination
 from .models import Company, Department, Employee
 from .permissions import CompanyPermission, DepartmentPermission, EmployeePermission
-from .serializers import CompanySerializer, DepartmentSerializer, EmployeeSerializer
+from .serializers import (
+    companyListSerializer,
+    CompanySerializer,
+    DepartmentListSerializer,
+    DepartmentSerializer,
+    EmployeeSerializer,
+)
 import logging
 
 logger = logging.getLogger("main.views")
@@ -59,3 +64,26 @@ class EmployeeViewSet(viewsets.ModelViewSet):
             return Employee.objects.filter(email=user.email)
 
         return Employee.objects.none()
+
+
+class CompanyListView(generics.ListAPIView):
+    queryset = Company.objects.all()
+    serializer_class = companyListSerializer
+    permission_classes = [IsAuthenticated, DepartmentPermission]
+    pagination_class = SmallResultsSetPagination
+
+
+class DepartmentListView(generics.ListAPIView):
+    serializer_class = DepartmentListSerializer
+    lookup_field = "pk"
+    permission_classes = [IsAuthenticated, DepartmentPermission]
+    pagination_class = SmallResultsSetPagination
+
+    @override
+    def get_queryset(self):
+        company_id = self.kwargs["pk"]
+        return Department.objects.filter(company=company_id)
+
+
+company_list = CompanyListView.as_view()
+department_list = DepartmentListView.as_view()

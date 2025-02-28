@@ -5,29 +5,41 @@ from .models import Company, Department, Employee
 from accounts.models import CustomUser
 
 
-class CompanySerializer(serializers.ModelSerializer):
-    number_of_departments = serializers.ReadOnlyField()
-    number_of_employees = serializers.ReadOnlyField()
-
+class companyListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
         fields = (
             "id",
             "name",
+        )
+
+
+class CompanySerializer(companyListSerializer):
+    number_of_departments = serializers.ReadOnlyField()
+    number_of_employees = serializers.ReadOnlyField()
+
+    class Meta(companyListSerializer.Meta):
+        fields = (
             "number_of_departments",
             "number_of_employees",
         )
 
 
-class DepartmentSerializer(serializers.ModelSerializer):
-    number_of_employees = serializers.ReadOnlyField()
-    company_name = serializers.SerializerMethodField()
-
+class DepartmentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Department
         fields = (
             "id",
             "name",
+        )
+
+
+class DepartmentSerializer(DepartmentListSerializer):
+    number_of_employees = serializers.ReadOnlyField()
+    company_name = serializers.SerializerMethodField()
+
+    class Meta(DepartmentListSerializer.Meta):
+        fields = (
             "company",
             "company_name",
             "number_of_employees",
