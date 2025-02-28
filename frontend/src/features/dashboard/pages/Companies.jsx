@@ -14,7 +14,9 @@ const Companies = () => {
     fetchCompanies,
     deleteCompany,
     saveCompany,
-    setError
+    setError,
+    navigateToPage,
+    pagination
   } = useCompany();
 
   const [showForm, setShowForm] = useState(false);
@@ -54,6 +56,10 @@ const Companies = () => {
     setShowDeleteConfirm(true);
   };
 
+  const handleLoadMore = () => {
+    navigateToPage();
+  };
+
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -73,6 +79,9 @@ const Companies = () => {
         companies={companies}
         onEdit={handleEdit}
         onDelete={handleDeleteClick}
+        onLoadMore={handleLoadMore}
+        onNavigateToPage={navigateToPage}
+        pagination={pagination}
       />
 
       {showForm && (

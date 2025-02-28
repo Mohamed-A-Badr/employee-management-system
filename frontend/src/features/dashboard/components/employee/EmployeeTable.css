@@ -60,3 +60,72 @@ tr:hover {
 .icon-button.delete:hover {
   color: #dc3545;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+}
+
+.pagination-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-btn:hover {
+  background-color: #0056b3;
+}
+
+.pagination-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.page-numbers {
+  display: flex;
+  align-items: center;
+}
+
+.page-number {
+  background-color: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+  margin: 0 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.page-number:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.page-number.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.page-number.ellipsis {
+  border: none;
+  background-color: transparent;
+  color: #666;
+  cursor: default;
+}
+
+.page-number:disabled {
+  border-color: #cccccc;
+  color: #cccccc;
+  cursor: not-allowed;
+}

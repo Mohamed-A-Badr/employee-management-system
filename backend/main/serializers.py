@@ -19,7 +19,7 @@ class CompanySerializer(companyListSerializer):
     number_of_employees = serializers.ReadOnlyField()
 
     class Meta(companyListSerializer.Meta):
-        fields = (
+        fields = companyListSerializer.Meta.fields + (
             "number_of_departments",
             "number_of_employees",
         )
@@ -39,7 +39,7 @@ class DepartmentSerializer(DepartmentListSerializer):
     company_name = serializers.SerializerMethodField()
 
     class Meta(DepartmentListSerializer.Meta):
-        fields = (
+        fields = DepartmentListSerializer.Meta.fields + (
             "company",
             "company_name",
             "number_of_employees",

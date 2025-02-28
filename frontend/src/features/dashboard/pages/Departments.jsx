@@ -15,6 +15,8 @@ const Departments = () => {
     fetchDepartments,
     deleteDepartment,
     saveDepartment,
+    navigateToPage,
+    pagination,
     setError: setDepartmentsError
   } = useDepartment();
 
@@ -85,6 +87,8 @@ const Departments = () => {
         departments={departments}
         onEdit={handleEdit}
         onDelete={handleDeleteClick}
+        onNavigateToPage={navigateToPage}
+        pagination={pagination}
       />
 
       {showForm && (

@@ -14,23 +14,23 @@ const Employees = () => {
     loading: employeesLoading,
     error: employeesError,
     fetchEmployees,
+    navigateToPage,
     deleteEmployee,
     saveEmployee,
+    pagination,
     setError: setEmployeesError
   } = useEmployee();
 
-  const {
-    companies,
-    loading: companiesLoading,
-    error: companiesError,
-    fetchCompanies
+  const { 
+    companies, 
+    loading: companiesLoading, 
+    fetchCompanies 
   } = useCompany();
 
-  const {
-    departments,
-    loading: departmentsLoading,
-    error: departmentsError,
-    fetchDepartments
+  const { 
+    departments, 
+    loading: departmentsLoading, 
+    fetchDepartments 
   } = useDepartment();
 
   const [showForm, setShowForm] = useState(false);
@@ -76,8 +76,8 @@ const Employees = () => {
     return <div className="loading">Loading...</div>;
   }
 
-  if (employeesError || companiesError || departmentsError) {
-    return <div className="error">{employeesError || companiesError || departmentsError}</div>;
+  if (employeesError) {
+    return <div className="error">{employeesError}</div>;
   }
 
   return (
@@ -94,6 +94,8 @@ const Employees = () => {
         employees={employees}
         onEdit={handleEdit}
         onDelete={handleDeleteClick}
+        onNavigateToPage={navigateToPage}
+        pagination={pagination}
       />
 
       {showForm && (
